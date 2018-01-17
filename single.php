@@ -1,13 +1,5 @@
-<?php
-/**
- * The main template file
- *
- * @package Vtrois
- * @version 2.3
- */
-
-get_header(); ?>
-<body class="home blog" style="">
+<?php get_header(); ?>
+<body>
 <header class="header">
     <div class="inner">
         <div class="logo">
@@ -81,6 +73,7 @@ get_header(); ?>
                     <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 
+
                     </script>
                 </div>
                 <?php while (have_posts()) : the_post(); ?>
@@ -102,64 +95,34 @@ get_header(); ?>
                 </ul>
             </section>
             <div class="post-comments">
-                <h3>发表评论</h3>
-                <div class="comments">
 
-                    <div id="respond">
-                        <form id="commentform" name="commentform"
-                              action="http://demo.leonhere.com/wpwebsite/wp-comments-post.php" method="post">
-                            <p>
-                                <label for="author">昵称：*</label>
-                                <input type="text" name="author" id="author" class="text" value="" tabindex="1">
-                            </p>
-                            <p>
-                                <label for="email">邮箱：*</label>
-                                <input type="text" name="email" class="text" id="email" value="" tabindex="2">
-                            </p>
-                            <p>
-                                <label for="url">网址：</label>
-                                <input type="text" name="url" class="text" value="" tabindex="3">
-                            </p>
-                            <p>
-                                <textarea name="comment" id="comment" tabindex="4"></textarea>
-                            </p>
-                            <p>
-                                <input type="submit" name="submit" class="submit" value="立即发布" tabindex="5">
-                                <a rel="nofollow" id="cancel-comment-reply-link" href="/wpwebsite/news/24.html#respond"
-                                   style="display:none;">点击这里取消回复。</a></p>
-                            <input type="hidden" name="comment_post_ID" value="24" id="comment_post_ID">
-                            <input type="hidden" name="comment_parent" id="comment_parent" value="0">
-                            <p style="display: none;"><input type="hidden" id="akismet_comment_nonce"
-                                                             name="akismet_comment_nonce" value="d1fa3b6140"></p>
-                            <p style="display: none;"></p>            <input type="hidden" id="ak_js" name="ak_js"
-                                                                             value="1516038272335"></form>
+                <?php comments_template(); ?>
 
-                    </div>
-                </div>
             </div>
-        </article>
-    </main>
-    <aside class="sidebar">
-        <section class="widget hot"><h3>最新添加</h3>
-            <ul>
-                <?php get_archives('postbypost', 10); ?>
-            </ul>
-        </section>
-        <section class="widget hot"><h3>热门关注</h3>
-            <ul>
-                <?php get_archives('postbypost', 10); ?>
-            </ul>
-        </section>
-        <section class="widget"><h3>最新资讯</h3>
-            <ul>
-                <?php get_archives('postbypost', 10); ?>
-            </ul>
-        </section>
-        <section class="widget_text widget">
-            <div class="textwidget custom-html-widget">
-            </div>
-        </section>
-    </aside>
+</div>
+</article>
+</main>
+<aside class="sidebar">
+    <section class="widget hot"><h3>最新添加</h3>
+        <ul>
+            <?php get_archives('postbypost', 10); ?>
+        </ul>
+    </section>
+    <section class="widget hot"><h3>热门关注</h3>
+        <ul>
+            <?php get_archives('postbypost', 10); ?>
+        </ul>
+    </section>
+    <section class="widget"><h3>最新资讯</h3>
+        <ul>
+            <?php get_archives('postbypost', 10); ?>
+        </ul>
+    </section>
+    <section class="widget_text widget">
+        <div class="textwidget custom-html-widget">
+        </div>
+    </section>
+</aside>
 </div>
 
 <?php get_footer(); ?>

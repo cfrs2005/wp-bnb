@@ -38,6 +38,7 @@
 <nav class="nav">
     <?php wp_nav_menu(array('theme_location' => 'header-menu', 'menu_class' => 'menus', 'container_class' => 'inner menu', 'fallback_cb' => '', 'walker' => new aj_menu_walker())); ?>
 </nav>
+
 <div class="blank"></div>
 <div class="inner container">
     <main class="main">
@@ -45,13 +46,17 @@
             <div class="col-12 col-m-24">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <?php query_posts('posts_per_page=4&caller_get_posts=1'); ?>
+                        <?php query_posts('posts_per_page=4&caller_get_posts=1&cat=' . implode(',', bnb_get('index_swf_banner'))); ?>
                         <?php
                         $i = 1;
                         while (have_posts()) : the_post(); ?>
                             <div class="swiper-slide"><a href="<?php the_permalink(); ?>">
-                                    <img src="http://www.5bite.com/zb_users/plugin/IMAGE/pic.php?src=aHR0cDovL3d3dy41Yml0ZS5jb20vemJfdXNlcnMvdXBsb2FkLzIwMTcvMTAvMjAxNzEwMzEyMTMxMjRfODA4NTMuanBn&width=442&height=390&cuttype=4"
-                                         alt="<?php the_title(); ?>"/>
+                                    <?php if (has_post_thumbnail()) {
+                                        the_post_thumbnail('swiper-index', array('alt' => get_the_title()));
+                                    } else { ?>
+                                        <img src="<?php echo catch_image() ?>"
+                                             alt="<?php the_title(); ?>"/>
+                                    <?php } ?>
                                     <p><?php echo cut_str($post->post_title, 34); ?></p></a>
                             </div>
                             <?php $i++; ?>

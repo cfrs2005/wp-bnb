@@ -18,18 +18,18 @@ define('THEME_VERSION', '1.1');
  * remove head
  */
 remove_filter('the_content', 'wptexturize');
-remove_action( 'wp_head', 'wp_print_head_scripts', 9 );
-remove_action( 'wp_head', 'wp_generator' );
-add_filter( 'show_admin_bar', '__return_false' );
-remove_action( 'wp_head', 'rsd_link' );
-remove_action( 'wp_head', 'wlwmanifest_link' );
-remove_action( 'wp_head', 'index_rel_link' );
-remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
-remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-remove_action( 'wp_head', 'rel_canonical' );
-remove_action( 'wp_head', 'feed_links', 2 );
-remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action('wp_head', 'wp_print_head_scripts', 9);
+remove_action('wp_head', 'wp_generator');
+add_filter('show_admin_bar', '__return_false');
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+remove_action('wp_head', 'start_post_rel_link', 10, 0);
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action('wp_head', 'rel_canonical');
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
 remove_action('admin_print_scripts', 'print_emoji_detection_script');
 remove_action('admin_print_styles', 'print_emoji_styles');
 remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -38,12 +38,15 @@ remove_action('embed_head', 'print_emoji_detection_script');
 remove_filter('the_content_feed', 'wp_staticize_emoji');
 remove_filter('comment_text_rss', 'wp_staticize_emoji');
 remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-add_filter( 'emoji_svg_url', '__return_false' );
+add_filter('emoji_svg_url', '__return_false');
 
-add_theme_support( "post-thumbnails" );
-add_theme_support( 'post-formats', array('gallery','video') );
+add_theme_support("post-thumbnails");
+add_theme_support('post-formats', array('gallery', 'video'));
 
+add_image_size('swiper-index', 442, 390, true);
+add_image_size('swiper-category', 442, 250, true);
 
+require_once(get_stylesheet_directory() . '/theme-options.php');
 
 
 register_nav_menus(
@@ -115,29 +118,48 @@ function catch_image()
     $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
     $first_img = $matches [1] [0];
 
-    if (empty($first_img)) { //Defines a default image
-        $random = mt_rand(1, 5);
+    if (empty($first_img)) {
+        //Defines a default image
         echo get_bloginfo('stylesheet_directory');
-        echo '/images/random/' . $random . '.png';
+        echo '/images/random/btc.jpeg';
     }
     return $first_img;
 }
 
 
+/**
+ * 获取参数
+ * @param $name
+ * @param bool $default
+ * @return bool
+ */
 function bnb_get($name, $default = false)
 {
-    $config = get_option('opshui');
-
-    if (!isset($config['id'])) {
-        return $default;
-    }
-
-    $options = get_option($config['id']);
-
+    $options = get_option('wp_bnb_options');
     if (isset($options[$name])) {
         return $options[$name];
     }
-
     return $default;
 }
+
+
+function get_post_excerpt($post, $excerpt_length = 240)
+{
+    if (!$post) $post = get_post();
+
+    $post_excerpt = $post->post_excerpt;
+    if ($post_excerpt == '') {
+        $post_content = $post->post_content;
+        $post_content = do_shortcode($post_content);
+        $post_content = wp_strip_all_tags($post_content);
+
+        $post_excerpt = mb_strimwidth($post_content, 0, $excerpt_length, '…', 'utf-8');
+    }
+
+    $post_excerpt = wp_strip_all_tags($post_excerpt);
+    $post_excerpt = trim(preg_replace("/[\n\r\t ]+/", ' ', $post_excerpt), ' ');
+
+    return $post_excerpt;
+}
+
 
