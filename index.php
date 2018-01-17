@@ -1,12 +1,5 @@
-<?php
-/**
- * The main template file
- *
- * @package Vtrois
- * @version 2.3
- */
+<?php get_header(); ?>
 
-get_header(); ?>
     <body class="home blog" style="">
 <header class="header">
     <div class="inner">
@@ -57,12 +50,8 @@ get_header(); ?>
                         $i = 1;
                         while (have_posts()) : the_post(); ?>
                             <div class="swiper-slide"><a href="<?php the_permalink(); ?>">
-                                    <?php if (has_post_thumbnail()) {
-                                        the_post_thumbnail('thumbnail', array('alt' => get_the_title()));
-                                    } else { ?>
-                                        <img class="home-thumb" src="<?php echo catch_image() ?>"
+                                        <img height="390" width="442"  src="<?php echo catch_image() ?>"
                                              alt="<?php the_title(); ?>"/>
-                                    <?php } ?>
                                     <p><?php echo cut_str($post->post_title, 34); ?></p></a>
                             </div>
                             <?php $i++; ?>
@@ -81,6 +70,9 @@ get_header(); ?>
                         loop : true,
                         autoplayDisableOnInteraction: false
                     });
+
+
+
                 </script>
             </div>
             <div class="col-12 col-m-24">
@@ -98,7 +90,15 @@ get_header(); ?>
                             </li>
                             <?php $i++; ?>
                         <?php endwhile; ?>
-
+                        <?php
+                        while (have_posts()) : the_post(); ?>
+                            <li>
+                                <i><?php echo $i; ?></i>
+                                <a target="_blank" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"
+                                   class="title"><?php echo cut_str($post->post_title, 34); ?></a>
+                            </li>
+                            <?php $i++; ?>
+                        <?php endwhile; ?>
                     </ul>
                 </div>
             </div>
