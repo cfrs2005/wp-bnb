@@ -1,21 +1,21 @@
 function b(){	
 	t = parseInt(x.css('top'));
 	y.css('top','44px');	
-	x.animate({top: t - 44 + 'px'},'slow');	//30ÎªÃ¿¸öliµÄ¸ß¶È
-	if(Math.abs(t) == h-44){ //30ÎªÃ¿¸öliµÄ¸ß¶È
+	x.animate({top: t - 44 + 'px'},'slow');	//30ÎªÃ¿ï¿½ï¿½liï¿½Ä¸ß¶ï¿½
+	if(Math.abs(t) == h-44){ //30ÎªÃ¿ï¿½ï¿½liï¿½Ä¸ß¶ï¿½
 		y.animate({top:'0px'},'slow');
 		z=x;
 		x=y;
 		y=z;
 	}
-	setTimeout(b,3000);//¹ö¶¯¼ä¸ôÊ±¼ä ÏÖÔÚÊÇ3Ãë
+	setTimeout(b,3000);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½
 }
 $(document).ready(function(){
 	$('.swap').html($('.newsList').html());
 	x = $('.newsList');
 	y = $('.swap');
-	h = $('.newsList li').length * 44; //30ÎªÃ¿¸öliµÄ¸ß¶È
-	setTimeout(b,3000);//¹ö¶¯¼ä¸ôÊ±¼ä ÏÖÔÚÊÇ3Ãë
+	h = $('.newsList li').length * 44; //30ÎªÃ¿ï¿½ï¿½liï¿½Ä¸ß¶ï¿½
+	setTimeout(b,3000);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½
 	$('.nav ul > li:last').addClass('nr');
 	$('.nav ul > li:first').addClass('nl');
 	$('.nav ul li').hover(function(){
@@ -36,4 +36,14 @@ $(document).ready(function(){
 		$('.mobilenav').removeClass('curbtn');
 		$('.nav').removeClass('open');
 	});
+
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        loop : true,
+        autoplayDisableOnInteraction: false
+    });
 });

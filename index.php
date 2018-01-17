@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <body class="home blog" style="">
+    <body>
 <header class="header">
     <div class="inner">
         <div class="logo">
@@ -45,13 +45,13 @@
             <div class="col-12 col-m-24">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <?php query_posts('posts_per_page=10&caller_get_posts=1'); ?>
+                        <?php query_posts('posts_per_page=4&caller_get_posts=1'); ?>
                         <?php
                         $i = 1;
                         while (have_posts()) : the_post(); ?>
                             <div class="swiper-slide"><a href="<?php the_permalink(); ?>">
-                                        <img height="390" width="442"  src="<?php echo catch_image() ?>"
-                                             alt="<?php the_title(); ?>"/>
+                                    <img src="http://www.5bite.com/zb_users/plugin/IMAGE/pic.php?src=aHR0cDovL3d3dy41Yml0ZS5jb20vemJfdXNlcnMvdXBsb2FkLzIwMTcvMTAvMjAxNzEwMzEyMTMxMjRfODA4NTMuanBn&width=442&height=390&cuttype=4"
+                                         alt="<?php the_title(); ?>"/>
                                     <p><?php echo cut_str($post->post_title, 34); ?></p></a>
                             </div>
                             <?php $i++; ?>
@@ -60,20 +60,6 @@
                     <div class="swiper-pagination">
                     </div>
                 </div>
-                <script>
-                    var swiper = new Swiper('.swiper-container', {
-                        pagination: '.swiper-pagination',
-                        paginationClickable: true,
-                        spaceBetween: 30,
-                        centeredSlides: true,
-                        autoplay: 2500,
-                        loop : true,
-                        autoplayDisableOnInteraction: false
-                    });
-
-
-
-                </script>
             </div>
             <div class="col-12 col-m-24">
                 <div class="index-new1">
@@ -82,15 +68,6 @@
                         <?php query_posts('posts_per_page=10&caller_get_posts=1'); ?>
                         <?php
                         $i = 1;
-                        while (have_posts()) : the_post(); ?>
-                            <li>
-                                <i><?php echo $i; ?></i>
-                                <a target="_blank" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"
-                                   class="title"><?php echo cut_str($post->post_title, 34); ?></a>
-                            </li>
-                            <?php $i++; ?>
-                        <?php endwhile; ?>
-                        <?php
                         while (have_posts()) : the_post(); ?>
                             <li>
                                 <i><?php echo $i; ?></i>

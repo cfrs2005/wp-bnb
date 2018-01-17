@@ -1,18 +1,49 @@
 <?php
-if( is_user_admin() ) ini_set('display_errors','On');
+if (is_user_admin()) ini_set('display_errors', 'On');
 
-/*
- * define
- * ====================================================
-*/
-define( 'HOME_URI', home_url() );
-define( 'HOME_DIR', rtrim(WP_CONTENT_DIR, "/wp-content") );
-define( 'THEME_FILES', get_stylesheet_directory() );
-define( 'THEME_URI', get_stylesheet_directory_uri() );
-define( 'AVATAR_DEFAULT', THEME_URI.'/images/avatar-default.png' );
-define( 'THUMB_DEFAULT', THEME_URI.'/images/thumbnail.png' );
-define( 'THEME_NAME', 'xiu' );
-define( 'THEME_VERSION', '1.1' );
+/**
+ * add define
+ */
+define('HOME_URI', home_url());
+define('HOME_DIR', rtrim(WP_CONTENT_DIR, "/wp-content"));
+define('THEME_FILES', get_stylesheet_directory());
+define('THEME_URI', get_stylesheet_directory_uri());
+define('AVATAR_DEFAULT', THEME_URI . '/images/avatar-default.png');
+define('THUMB_DEFAULT', THEME_URI . '/images/thumbnail.png');
+define('THEME_NAME', 'bnb');
+define('THEME_VERSION', '1.1');
+
+
+/**
+ * remove head
+ */
+remove_filter('the_content', 'wptexturize');
+remove_action( 'wp_head', 'wp_print_head_scripts', 9 );
+remove_action( 'wp_head', 'wp_generator' );
+add_filter( 'show_admin_bar', '__return_false' );
+remove_action( 'wp_head', 'rsd_link' );
+remove_action( 'wp_head', 'wlwmanifest_link' );
+remove_action( 'wp_head', 'index_rel_link' );
+remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
+remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+remove_action( 'wp_head', 'rel_canonical' );
+remove_action( 'wp_head', 'feed_links', 2 );
+remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('admin_print_styles', 'print_emoji_styles');
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('embed_head', 'print_emoji_detection_script');
+remove_filter('the_content_feed', 'wp_staticize_emoji');
+remove_filter('comment_text_rss', 'wp_staticize_emoji');
+remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+add_filter( 'emoji_svg_url', '__return_false' );
+
+add_theme_support( "post-thumbnails" );
+add_theme_support( 'post-formats', array('gallery','video') );
+
+
 
 
 register_nav_menus(
