@@ -70,7 +70,7 @@
                 <div class="index-new1">
                     <h2 class="tx-title3">最新文章</h2>
                     <ul class="tx-ph-ul ul-38 black-a f-14">
-                        <?php query_posts('posts_per_page=10&caller_get_posts=1'); ?>
+                        <?php query_posts('posts_per_page=9&caller_get_posts=1&cat=' . implode(',', bnb_get('index_swf_banner'))); ?>
                         <?php
                         $i = 1;
                         while (have_posts()) : the_post(); ?>

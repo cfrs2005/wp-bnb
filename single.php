@@ -40,8 +40,8 @@
 <div class="blank"></div>
 <div class="inner container">
     <main class="main">
-        <div class="breadcrumb"><a href="<?php echo HOME_URI; ?>" title="WebSite主题演示">网站首页</a> <i>/</i> <a
-                href="<?php echo HOME_URI; ?>">新闻动态</a> <i>/</i></div>
+        <div class="breadcrumb"><a href="<?php echo HOME_URI; ?>" title="WebSite主题演示">网站首页</a>
+            <i>/</i> <?php the_category(', ') ?> <i>/</i></div>
 
         <article class="site-post post blog-post">
             <h1 class="post-title"><?php the_title(); ?></h1>
@@ -74,6 +74,7 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 
 
+
                     </script>
                 </div>
                 <?php while (have_posts()) : the_post(); ?>
@@ -99,30 +100,29 @@
                 <?php comments_template(); ?>
 
             </div>
-</div>
-</article>
-</main>
-<aside class="sidebar">
-    <section class="widget hot"><h3>最新添加</h3>
-        <ul>
-            <?php get_archives('postbypost', 10); ?>
-        </ul>
-    </section>
-    <section class="widget hot"><h3>热门关注</h3>
-        <ul>
-            <?php get_archives('postbypost', 10); ?>
-        </ul>
-    </section>
-    <section class="widget"><h3>最新资讯</h3>
-        <ul>
-            <?php get_archives('postbypost', 10); ?>
-        </ul>
-    </section>
-    <section class="widget_text widget">
-        <div class="textwidget custom-html-widget">
-        </div>
-    </section>
-</aside>
+        </article>
+    </main>
+    <aside class="sidebar">
+        <section class="widget hot"><h3>最新添加</h3>
+            <ul>
+                <?php get_archives('postbypost', 10); ?>
+            </ul>
+        </section>
+        <section class="widget hot"><h3>热门关注</h3>
+            <ul>
+                <?php get_archives('postbypost', 10); ?>
+            </ul>
+        </section>
+        <section class="widget"><h3>最新资讯</h3>
+            <ul>
+                <?php get_archives('postbypost', 10); ?>
+            </ul>
+        </section>
+        <section class="widget_text widget">
+            <div class="textwidget custom-html-widget">
+            </div>
+        </section>
+    </aside>
 </div>
 
 <?php get_footer(); ?>

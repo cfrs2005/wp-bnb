@@ -7,7 +7,7 @@
     <div class="inner friendlinks">
         <ul>
             <li><span>友情链接</span></li>
-            <li><a href="http://www.80aj.net" title="安静" target="_blank">安静</a></li>
+            <li><a href="http://www.80aj.com" title="安静" target="_blank">安静</a></li>
             <li><a href="http://www.88bnb.com" title="88BNB区块链" target="_blank">88BNB区块链</a></li>
         </ul>
     </div>

@@ -1,6 +1,10 @@
 <?php get_header(); ?>
 
     <body>
+
+<?php global $wp_query;
+$cat_id = get_query_var('cat');
+?>
 <header class="header">
     <div class="inner">
         <div class="logo">
@@ -72,7 +76,7 @@
                     <div class="index-new1">
                         <ul class="black-a f-14">
 
-                            <?php query_posts('posts_per_page=2&caller_get_posts=1');
+                            <?php query_posts('posts_per_page=2&caller_get_posts=1&cat='.$cat_id);
                             while (have_posts()) : the_post(); ?>
                                 <li class="pd15-1 border-b">
 
@@ -96,7 +100,7 @@
 
         <div class="list-nav bgb mb10">
             <ul class="clearfix">
-                <?php query_posts('posts_per_page=5&caller_get_posts=1');
+                <?php query_posts('posts_per_page=10&caller_get_posts=1&cat='.$cat_id);
                 while (have_posts()) : the_post(); ?>
                     <li>
                         <a target="_blank" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"
@@ -107,7 +111,7 @@
         </div>
 
         <div class="bgb">
-            <h3 class="title mb20">资讯</h3>
+            <h3 class="title mb20"><?php single_cat_title(); ?></h3>
             <?php
             while (have_posts()) : the_post(); ?>
                 <section class="section1 wow fadeIn cate19 auth1">
