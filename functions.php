@@ -46,6 +46,82 @@ add_theme_support('post-formats', array('gallery', 'video'));
 add_image_size('swiper-index', 442, 390, true);
 add_image_size('swiper-category', 442, 250, true);
 
+
+//增加自定义aff字段
+$new_meta_boxes =
+    array(
+        "affurl" => array(
+            "name" => "_affurl",
+            "std" => "http://www.otcbtc.com",
+            "title" => "AFF URL:")
+    );
+
+
+function new_meta_boxes()
+{
+    global $post, $new_meta_boxes;
+    foreach ($new_meta_boxes as $meta_box) {
+        $meta_box_value = get_post_meta($post->ID, $meta_box['name'] . '_value', true);
+
+        if ($meta_box_value == "")
+            $meta_box_value = $meta_box['std'];
+        echo '<h4>' . $meta_box['title'] . '</h4>';
+        echo '<input name="' . $meta_box['name'] . '_value" value="' . $meta_box_value . '" size="50" /><br />';
+    }
+
+    echo '<input type="hidden" name="meta_check" id="meta_check" value="' . wp_create_nonce(plugin_basename(__FILE__)) . '" />';
+}
+
+function create_meta_box()
+{
+    if (function_exists('add_meta_box')) {
+        add_meta_box('new-meta-boxes', '自定义模块', 'new_meta_boxes', 'post', 'normal', 'high');
+    }
+}
+
+function save_postdata($post_id)
+{
+    global $new_meta_boxes;
+
+    if (!wp_verify_nonce($_POST['meta_check'], plugin_basename(__FILE__)))
+        return;
+
+    if (!current_user_can('edit_posts', $post_id))
+        return;
+
+    foreach ($new_meta_boxes as $meta_box) {
+        $data = $_POST[$meta_box['name'] . '_value'];
+
+        if ($data == "")
+            delete_post_meta($post_id, $meta_box['name'] . '_value', get_post_meta($post_id, $meta_box['name'] . '_value', true));
+        else
+            update_post_meta($post_id, $meta_box['name'] . '_value', $data);
+    }
+}
+
+add_action('admin_menu', 'create_meta_box');
+add_action('save_post', 'save_postdata');
+
+
+//add single show
+define(SINGLE_PATH, TEMPLATEPATH . '/single');
+function wp_bnb_single_template($single)
+{
+    global $wp_query, $post;
+    foreach ((array)get_the_category() as $cat) :
+        if (file_exists(SINGLE_PATH . '/single-' . $cat->slug . '.php')) {
+            return SINGLE_PATH . '/single-' . $cat->slug . '.php';
+        } elseif (file_exists(SINGLE_PATH . '/single-' . $cat->term_id . '.php')) {
+            return SINGLE_PATH . '/single-' . $cat->term_id . '.php';
+        } else {
+            return TEMPLATEPATH.'/single.php';
+        }
+    endforeach;
+}
+
+add_filter('single_template', 'wp_bnb_single_template');
+
+
 require_once(get_stylesheet_directory() . '/theme-options.php');
 
 

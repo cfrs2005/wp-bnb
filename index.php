@@ -91,8 +91,8 @@
             ?>
             <section class="box">
                 <h3><?php echo $category->name; ?></h3>
-                <span class="more"><a href="<?php echo HOME_URI . "/category/" . $category->name; ?>"
-                                      title="主机域名">更多 <i>+</i></a></span>
+                <span class="more"><a href="<?php echo get_category_link(get_cat_ID($category->name)); ?>"
+                                      title="<?php echo $category->name;?>">更多 <i>+</i></a></span>
                 <ul>
                     <?php query_posts('cat=' . $category->term_id); ?>
                     <?php while (have_posts()) : the_post(); ?>
