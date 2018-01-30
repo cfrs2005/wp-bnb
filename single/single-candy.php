@@ -68,7 +68,7 @@
                 <?php
                 $affurl = '';
                 if (is_single()) {
-                    $affurl = get_post_meta($post->ID, "_affurl", true);
+                    $affurl = get_post_meta($post->ID, "_affurl_value", true);
                     $affurl = trim(strip_tags($affurl));
                 }
 
@@ -85,85 +85,133 @@
                         <?php the_content(); ?>
                     <?php endwhile; ?>
                 </div>
+
+
+
+
+
+
                 <section class="news-related">
                     <h3>相关资讯</h3>
                     <ul>
-                        <li><a href="http://www.5bite.com/post/1870.html" target="_blank" title="刘强东视频流出：京东或将接受比特币支付！">刘强东视频流出：京东或将接受比特币支付！</a>
-                        </li>
-                        <li><a href="http://www.5bite.com/post/1823.html" target="_blank" title="比特币涨至50000元！幕后推手大揭秘！">比特币涨至50000元！幕后推手大揭秘！</a>
-                        </li>
-                        <li><a href="http://www.5bite.com/post/1752.html" target="_blank"
-                               title="比特币白皮书9周年！比特币市值700000000000元！">比特币白皮书9周年！比特币市值700000000000元！</a></li>
-                        <li><a href="http://www.5bite.com/post/1736.html" target="_blank" title="最后一天！明天起，比特币将彻底告别中国！">最后一天！明天起，比特币将彻底告别中国！</a>
-                        </li>
-                        <li><a href="http://www.5bite.com/post/1658.html" target="_blank" title="新加坡央行：比特币本身并不需要被监管">新加坡央行：比特币本身并不需要被监管</a>
-                        </li>
-                        <li><a href="http://www.5bite.com/post/606.html" target="_blank"
-                               title="美国国会考虑认可比特币">美国国会考虑认可比特币</a></li>
-                        <li><a href="http://www.5bite.com/post/584.html" target="_blank"
-                               title="《财富》：较之VC，ICO能为比特币创业公司筹集更多资金">《财富》：较之VC，ICO能为比特币创业公司筹集更多资金</a></li>
-                        <li><a href="http://www.5bite.com/post/555.html" target="_blank" title="纽约市公务员因用工作设备挖比特币遭处罚">纽约市公务员因用工作设备挖比特币遭处罚</a>
-                        </li>
-                        <li><a href="http://www.5bite.com/post/554.html" target="_blank"
-                               title="Belfrics计划在非洲各国成立比特币交易所">Belfrics计划在非洲各国成立比特币交易所</a></li>
-                        <li><a href="http://www.5bite.com/post/553.html" target="_blank" title="上市公司融资用新招：比特币兑换股票">上市公司融资用新招：比特币兑换股票</a>
-                        </li>
-
+                            <?php
+                            $post_tags = wp_get_post_tags($post->ID);
+                            if ($post_tags) {
+                                foreach ($post_tags as $tag) {
+                                    $tag_list[] .= $tag->term_id;
+                                }
+                                $post_tag = $tag_list[mt_rand(0, count($tag_list) - 1)];
+                                $args = array(
+                                    'tag__in' => array($post_tag),
+                                    'category__not_in' => array(NULL),
+                                    'post__not_in' => array($post->ID),
+                                    'showposts' => 6,
+                                    'caller_get_posts' => 1
+                                );
+                                query_posts($args);
+                                if (have_posts()) : while (have_posts()) : the_post();
+                                    update_post_caches($posts); ?>
+                                    <li>
+                                        <a href="<?php the_permalink(); ?>" rel="bookmark"
+                                           title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+                                    </li>
+                                <?php endwhile;
+                                else :
+                                    $ashu_cats = wp_get_post_categories($post->ID);
+                                    if ($ashu_cats) {
+                                        $args = array(
+                                            'category__in' => array($ashu_cats[0]),
+                                            'post__not_in' => array($post->ID),
+                                            'showposts' => 6,
+                                            'caller_get_posts' => 1
+                                        );
+                                        query_posts($args);
+                                        if (have_posts()):while (have_posts()):the_post();
+                                            update_post_caches($posts); ?>
+                                            <li>
+                                                <a href="<?php the_permalink(); ?>" rel="bookmark"
+                                                   title="<?php the_title_attribute(); ?>">
+                                                    <?php the_title(); ?>
+                                                </a>
+                                            </li>
+                                        <?php endwhile; endif;
+                                        wp_reset_query();
+                                    } ?>
+                                <?php endif;
+                                wp_reset_query();
+                            } ?>
                     </ul>
                 </section>
             </div>
             <section class="site-related">
                 <ul class="mb10">
-                    <li>
-                        <div class="site-logo">
-                            <a href="http://www.5bite.com/post/3186.html" target="_blank" title="智能坊"><img alt="智能坊"
-                                                                                                           src="http://www.5bite.com/zb_users/upload/2018/01/201801161516110898160736.jpg"/></a>
-                        </div>
-                        <p><a href="http://www.5bite.com/post/3186.html" target="_blank" title="智能坊">智能坊</a></p>
-                    </li>
-                    <li>
-                        <div class="site-logo">
-                            <a href="http://www.5bite.com/post/2367.html" target="_blank" title="Cream（CRM）"><img
-                                    alt="Cream（CRM）"
-                                    src="http://www.5bite.com/zb_users/upload/2017/12/201712041512380518540298.jpg"/></a>
-                        </div>
-                        <p><a href="http://www.5bite.com/post/2367.html" target="_blank"
-                              title="Cream（CRM）">Cream（CRM）</a></p>
-                    </li>
-                    <li>
-                        <div class="site-logo">
-                            <a href="http://www.5bite.com/post/2348.html" target="_blank" title="沃尔顿币（WTC）"><img
-                                    alt="沃尔顿币（WTC）"
-                                    src="http://www.5bite.com/zb_users/upload/2017/12/201712031512298709154010.jpg"/></a>
-                        </div>
-                        <p><a href="http://www.5bite.com/post/2348.html" target="_blank" title="沃尔顿币（WTC）">沃尔顿币（WTC）</a>
-                        </p>
-                    </li>
-                    <li>
-                        <div class="site-logo">
-                            <a href="http://www.5bite.com/post/2336.html" target="_blank" title="玩客币"><img alt="玩客币"
-                                                                                                           src="http://www.5bite.com/zb_users/upload/2017/12/201712021512213421890239.jpg"/></a>
-                        </div>
-                        <p><a href="http://www.5bite.com/post/2336.html" target="_blank" title="玩客币">玩客币</a></p>
-                    </li>
-                    <li>
-                        <div class="site-logo">
-                            <a href="http://www.5bite.com/post/2315.html" target="_blank" title="比特币钻石(BCD)"><img
-                                    alt="比特币钻石(BCD)"
-                                    src="http://www.5bite.com/zb_users/upload/2017/12/201712011512126364193610.jpg"/></a>
-                        </div>
-                        <p><a href="http://www.5bite.com/post/2315.html" target="_blank"
-                              title="比特币钻石(BCD)">比特币钻石(BCD)</a></p>
-                    </li>
-                    <li>
-                        <div class="site-logo">
-                            <a href="http://www.5bite.com/post/2314.html" target="_blank" title="比特币黄金(BTG)"><img
-                                    alt="比特币黄金(BTG)"
-                                    src="http://www.5bite.com/zb_users/upload/2017/12/201712011512125131631481.jpg"/></a>
-                        </div>
-                        <p><a href="http://www.5bite.com/post/2314.html" target="_blank"
-                              title="比特币黄金(BTG)">比特币黄金(BTG)</a></p>
-                    </li>
+
+                    <?php
+                    $post_tags = wp_get_post_tags($post->ID);
+                    if ($post_tags) {
+                        foreach ($post_tags as $tag) {
+                            $tag_list[] .= $tag->term_id;
+                        }
+                        $post_tag = $tag_list[mt_rand(0, count($tag_list) - 1)];
+                        $args = array(
+                            'tag__in' => array($post_tag),
+                            'category__not_in' => array(NULL),
+                            'post__not_in' => array($post->ID),
+                            'showposts' => 6,
+                            'caller_get_posts' => 1
+                        );
+                        query_posts($args);
+                        if (have_posts()) : while (have_posts()) : the_post();
+                            update_post_caches($posts); ?>
+                            <li>
+                                <div class="site-logo">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php if (has_post_thumbnail()) {
+                                            the_post_thumbnail('swiper-category', array('alt' => get_the_title()));
+                                        } else { ?>
+                                            <img src="<?php echo catch_image() ?>"
+                                                 alt="<?php the_title(); ?>"/>
+                                        <?php } ?></a>
+                                </div>
+                                <p>
+                                    <a href="<?php the_permalink(); ?>" rel="bookmark"
+                                       title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></p>
+
+                            </li>
+                        <?php endwhile;
+                        else :
+                            $ashu_cats = wp_get_post_categories($post->ID);
+                            if ($ashu_cats) {
+                                $args = array(
+                                    'category__in' => array($ashu_cats[0]),
+                                    'post__not_in' => array($post->ID),
+                                    'showposts' => 6,
+                                    'caller_get_posts' => 1
+                                );
+                                query_posts($args);
+                                if (have_posts()):while (have_posts()):the_post();
+                                    update_post_caches($posts); ?>
+                                    <li>
+                                        <div class="site-logo">
+                                            <a href="<?php the_permalink(); ?>">
+                                                <?php if (has_post_thumbnail()) {
+                                                    the_post_thumbnail('swiper-category', array('alt' => get_the_title()));
+                                                } else { ?>
+                                                    <img src="<?php echo catch_image() ?>"
+                                                         alt="<?php the_title(); ?>"/>
+                                                <?php } ?></a>
+                                        </div>
+                                        <p>
+                                            <a href="<?php the_permalink(); ?>" rel="bookmark"
+                                               title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></p>
+
+                                    </li>
+                                <?php endwhile; endif;
+                                wp_reset_query();
+                            } ?>
+                        <?php endif;
+                        wp_reset_query();
+                    } ?>
                 </ul>
                 <div class="site-entry post-ad">
                     <a href="http://www.5bite.com/post/46.html" target="_blank"><img

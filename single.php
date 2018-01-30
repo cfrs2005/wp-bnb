@@ -75,6 +75,7 @@
 
 
 
+
                     </script>
                 </div>
                 <?php while (have_posts()) : the_post(); ?>
@@ -86,12 +87,52 @@
             <section class="news-related">
                 <h3>您可能还会喜欢：</h3>
                 <ul>
-                    <li><a href="http://demo.leonhere.com/wpwebsite/news/23.html" target="_blank"
-                           title="百度最新推出的“蓝天算法”内容是什么？">百度最新推出的“蓝天算法”内容是什么？</a></li>
-                    <li><a href="http://demo.leonhere.com/wpwebsite/news/21.html" target="_blank"
-                           title="360搜索上线“悟空算法” 助百万站长抗击黑客攻击">360搜索上线“悟空算法” 助百万站长抗击黑客攻击</a></li>
-                    <li><a href="http://demo.leonhere.com/wpwebsite/news/7.html" target="_blank"
-                           title="即日起，阿里云30+产品免费6个月">即日起，阿里云30+产品免费6个月</a></li>
+                    <?php
+                    $post_tags = wp_get_post_tags($post->ID);
+                    if ($post_tags) {
+                        foreach ($post_tags as $tag) {
+                            $tag_list[] .= $tag->term_id;
+                        }
+                        $post_tag = $tag_list[mt_rand(0, count($tag_list) - 1)];
+                        $args = array(
+                            'tag__in' => array($post_tag),
+                            'category__not_in' => array(NULL),
+                            'post__not_in' => array($post->ID),
+                            'showposts' => 6,
+                            'caller_get_posts' => 1
+                        );
+                        query_posts($args);
+                        if (have_posts()) : while (have_posts()) : the_post();
+                            update_post_caches($posts); ?>
+                            <li>
+                                <a href="<?php the_permalink(); ?>" rel="bookmark"
+                                   title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+                            </li>
+                        <?php endwhile;
+                        else :
+                            $ashu_cats = wp_get_post_categories($post->ID);
+                            if ($ashu_cats) {
+                                $args = array(
+                                    'category__in' => array($ashu_cats[0]),
+                                    'post__not_in' => array($post->ID),
+                                    'showposts' => 6,
+                                    'caller_get_posts' => 1
+                                );
+                                query_posts($args);
+                                if (have_posts()):while (have_posts()):the_post();
+                                    update_post_caches($posts); ?>
+                                    <li>
+                                        <a href="<?php the_permalink(); ?>" rel="bookmark"
+                                           title="<?php the_title_attribute(); ?>">
+                                            <?php the_title(); ?>
+                                        </a>
+                                    </li>
+                                <?php endwhile; endif;
+                                wp_reset_query();
+                            } ?>
+                        <?php endif;
+                        wp_reset_query();
+                    } ?>
 
                 </ul>
             </section>

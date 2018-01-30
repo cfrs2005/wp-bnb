@@ -1,4 +1,6 @@
 <?php
+//logo maker https://logomakr.com/6E2JR6
+
 if (is_user_admin()) ini_set('display_errors', 'On');
 
 /**

@@ -3,7 +3,7 @@
  * Theme URI: http://www.88bnb.com
  * Author: aj
  * Author URI: http://www.80aj.com
- * Description: 由<a href="http://www.80aj.com/" target="_blank">博客吧</a>开发制作的高级WordPress导航网站模板，正版用户技术支持。
+ * Description: 由<a href="https://github.com/cfrs2005/wp-bnb" target="_blank">bnb</a>维护。
  * Version: 1.2
  * License: 使用条款
  * License URI: http://www.80aj.com/
@@ -665,7 +665,7 @@ table td, table th {
 }
 
 .search-form .submit {
-    background-color: #3CADFB;
+    background-color: #000000;
     height: 44px;
     padding: 0 25px;
     border-radius: 0 3px 3px 0;
@@ -675,7 +675,7 @@ table td, table th {
 }
 
 .search-form .submit:hover {
-    background-color: #1A9ADA;
+    background-color: #999999;
 }
 
 /*notice*/
@@ -730,13 +730,13 @@ table td, table th {
     width: 100%;
     height: 42px;
     line-height: 42px;
-    background-color: #3CADFB;
+    background-color: #000000;
 }
 
 .nav ul li {
     float: left;
-    border-right: 1px solid #32a2f0;
-    border-left: 1px solid #74c5fd;
+    border-right: 1px solid #000000;
+    border-left: 1px solid #ffffff;
     font-size: 1em;
     position: relative;
     width: 131px;
@@ -758,7 +758,7 @@ table td, table th {
 }
 
 .nav ul li a:hover {
-    background-color: #67bcf7;
+    background-color: #999999;
 }
 
 .nav ul li ul {
@@ -836,7 +836,7 @@ table td, table th {
 }
 
 .widget ul li a:hover {
-    color: #3CADFB;
+    color: #000000;
     text-decoration: underline;
 }
 
@@ -1326,7 +1326,7 @@ table td, table th {
 }
 
 .blog .readmore a {
-    color: #3CADFB;
+    color: #000000;
 }
 
 /*site-post*/
@@ -1376,7 +1376,7 @@ table td, table th {
 }
 
 .site-post .site-go a:hover {
-    background-color: #3CADFB;
+    background-color: #000000;
 }
 
 .site-post .site-content {
@@ -1604,7 +1604,7 @@ table td, table th {
     display: block;
     float: left;
     width: 70px;
-    background-color: #3CADFB;
+    background-color: #000000;
     color: #fff;
     padding: 0 5px;
     font-size: 0.875em;
@@ -1635,7 +1635,7 @@ table td, table th {
 }
 
 #comment .submit {
-    background-color: #3CADFB;
+    background-color: #000000;
     color: #fff;
     cursor: pointer;
     padding: 8px 20px;
@@ -1800,8 +1800,8 @@ a#cancel-reply {
 }
 
 .pagenavi a:hover, .pagenavi span.now-page {
-    border-color: #3CADFB;
-    color: #3CADFB;
+    border-color: #000000;
+    color: #000000;
 }
 
 /*friendlinks*/
@@ -2018,7 +2018,7 @@ a.tags6 {
 }
 
 .list-nav li a:hover, .list-nav li.on a {
-    background: #3CADFB;
+    background: #000000;
     color: #fff;
 }
 
